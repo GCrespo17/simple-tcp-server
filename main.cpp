@@ -8,29 +8,20 @@
 
 int main(){
     constexpr int port{8080};
+    constexpr int maximumConnections{50};
     struct sockaddr_in mySocketAddress{};
     int socketFileDescriptor{};
+    constexpr int defaultProtocol{0};
 
-    try{
-        socketFileDescriptor = createSocket(AF_INET, SOCK_STREAM, 0);
-        std::cout<<"Socket created\n";
-    }catch(const std::exception& e){
-        return 1;
-    }
+    socketFileDescriptor = handleSocketCreation(AF_INET, SOCK_STREAM, defaultProtocol);
 
     mySocketAddress.sin_family = AF_INET;
     mySocketAddress.sin_addr.s_addr = INADDR_ANY;
     mySocketAddress.sin_port = htons(port);
 
 
-    try{
-        int binded=bindSocket(socketFileDescriptor, reinterpret_cast<struct sockaddr*>(&mySocketAddress));
-        std::cout<<"Socket binded successfully\n";
-    }catch(const std::exception &e){
-        std::cout<<"Socket could not be binded\n";
-        return 1;
-    }
-
+    handleBindingSocket(socketFileDescriptor, &mySocketAddress);
+    handleListening(socketFileDescriptor, maximumConnections, port);
 
     return 0;
 }
