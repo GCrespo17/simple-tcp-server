@@ -1,5 +1,4 @@
 #include "server.h"
-#include <cstddef>
 #include <exception>
 #include <stdexcept>
 #include <sys/socket.h>
