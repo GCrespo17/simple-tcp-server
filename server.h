@@ -4,7 +4,7 @@
 #include <sys/socket.h>
 int createSocket(int domain, int type, int protocol);
 
-int bindSocket(int socketFileDecriptor, const struct sockaddr *addr);
+void bindSocket(int socketFileDecriptor, const struct sockaddr *addr);
 
-int listenToMessages(int socketFileDescriptor, int backlog, int port);
+void listenToMessages(int socketFileDescriptor, int backlog, int port);
 #endif

@@ -13,23 +13,21 @@ int createSocket(int domain, int type, int protocol){
     return socketFileDescriptor;
 }
 
-int bindSocket(int socketFileDescriptor, const struct sockaddr *addr){    
+void bindSocket(int socketFileDescriptor, const struct sockaddr *addr){    
     int bindMySocket{bind(socketFileDescriptor, addr, sizeof(*addr))};
     if(bindMySocket<0){
         std::cerr <<"Binding failed...\n";
         exit(EXIT_FAILURE);    
     }
     std::cout<<"Socket binded successfully...\n";
-    return bindMySocket;
 }
 
-
-int listenToMessages(int socketFileDescriptor, int backlog, int port){
+void listenToMessages(int socketFileDescriptor, int backlog, int port){
     int listening = listen(socketFileDescriptor, backlog);
     if(listening<0){
         std::cerr <<"Listening failed...\n";
         exit(EXIT_FAILURE);
     }
     std::cout<<"Listening on Port "<<port<<"...\n";
-    return listening;
 }
+
