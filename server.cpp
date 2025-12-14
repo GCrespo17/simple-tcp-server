@@ -49,6 +49,7 @@ void HttpServer::acceptConnection(int socketFileDescriptor, struct sockaddr *pee
         exit(EXIT_FAILURE);
     }
     peerConnections[currentConnectionCounter]=peerFileDescriptor;
+    currentConnectionCounter++;
 }
 
 void HttpServer::initServer(){
@@ -58,5 +59,5 @@ void HttpServer::initServer(){
 
 void HttpServer::startServer(){
     listenToMessages(socketFileDescriptor, maximumConnections, port);
-    acceptConnection(socketFileDescriptor, reinterpret_cast<struct sockaddr *>(&mySocketAddress));
+    acceptConnection(socketFileDescriptor, reinterpret_cast<struct sockaddr *>(&peerAddress));
 }
